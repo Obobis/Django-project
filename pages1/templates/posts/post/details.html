@@ -1,0 +1,82 @@
+{% extends "posts/base.html" %}
+{% block title %} {{ post.title }} {% endblock %}
+{% block content %}
+<head>
+<script>
+    function EditForm(){
+        post_key = document.getElementById('post').getAttribute('data-value')
+        url = '/posts/post_edit/' + post_key.toString() + '/'
+        fetch(url)
+            .then(response.text("sosal"))
+            .then(html => {
+                document.getElementById('post').innerHTML = html;})
+            .catch(error => console.error('Error loading form:', error));
+    }
+</script>
+</head>
+<form action="{% url 'posts:post_list' %}" class="form-back">
+    <p><input type="submit" value="go back" class="btn btn-primary"></p>
+</form>
+<div class="cards-container" id="post" data-value="{{ post.pk }}">
+        <div class="card">
+            {% if request.user == post.author %}
+                <form action="{% url 'posts:post_delete' post.pk %}" class="form-delete" method="post">
+                    {% csrf_token %}
+                    <p><input type="submit" value="delete" class="delete-button"></p>
+                </form>
+                <button class="edit-button" onclick="EditForm()">edit</button>
+            {% endif %}
+            <h1>{{ post.title }}</h1>
+            <small>
+                Published {{ post.publish|date:"d.m.Y" }} by {{ post.author }}
+            </small>
+            <div class="card-text">
+                {{ post.body|linebreaks }}
+            </div>
+        </div>
+{% with replies.count as total_replies %}
+    <h3 style="color: #adb5bd;">
+        {% if total_replies == 1 %}
+            {{ total_replies }} reply {{ total_replies|pluralize }}
+        {% else %}
+            {{ total_replies }} replie{{ total_replies|pluralize }}
+        {% endif %}
+    </h3>
+{% endwith %}
+{% for reply in replies %}
+       <div class="card" >
+           {% if request.user.username == reply.name %}
+                <form action="{% url 'posts:reply_delete' reply.pk %}" class="form-delete" method="post">
+                    {% csrf_token %}
+                    <p><input type="submit" value="delete" class="delete-button"></p>
+                </form>
+            {% endif %}
+            <p class="card-title">
+                <strong>{{ reply.name }} replied</strong>
+            </p>
+            <small>
+                {{ reply.created|date:"d.m.y" }}
+            </small>
+            <div class="card-text">
+                {{ reply.body|linebreaks }}
+            </div>
+       </div>
+{% empty %}
+    <p style="color: #adb5bd;"> There are no replies yet, write first one </p>
+{% endfor %}
+
+<div class="form-group">
+{% if new_reply %}
+    <h2> Your reply has been added</h2>
+{% else %}
+    <h2 style="color: #adb5bd;"> Add a new reply </h2>
+        <form action="." method="post" class="form-control">
+            {{ reply_form.as_p}}
+            {% csrf_token %}
+            <p><input type = "submit" value = "Post reply" class="btn btn-primary"></p>
+        </form>
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="form-container" style="background-color: #1c1e21; color: #e9ecef; width: 600px; border: 1px solid #495057; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); padding: 20px; text-align: center;">
+        <h2>Dashboard</h2>
+        <p>
+            Welcome to your dashboard. You can
+            <a href="{% url 'account:edit' %}" style="color: #ffc107;">edit your profile</a>
+            or
+            <a href="{% url 'account:password_change' %}" style="color: #ffc107;">change your password</a>.
+        </p>
+        <p>
+            Also you can <a href="{% url 'posts:post_create' %}" style="color: #ffc107;"> ask your question</a>
+            or
+            <a href="{% url 'posts:post_list' %}" style="color: #ffc107;"> see all questions </a>
+        </p>
+    </div>
+</div>
+{% endblock %}

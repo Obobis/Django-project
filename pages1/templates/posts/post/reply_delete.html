@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Delete{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="form-container" style="background-color: #1c1e21; color: #e9ecef; width: 400px; border: 1px solid #495057; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);">
+      <h3>Your answer was deleted</h3>
+      <p>Now you can return to your <a href="{% url "account:dashboard" %}" style="color: #ffc107;">dashboard</a>
+      or
+      <a href="{% url "posts:post_list" %}" style="color: #ffc107;"> see all posts </a>
+      </p>
+    </div>
+</div>
+
+{% endblock %}

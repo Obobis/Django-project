@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Creates{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="form-container" style="background-color: #1c1e21; color: #e9ecef; width: 400px; border: 1px solid #495057; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);">
+        <div class=class="form-container">
+            <form action="." method="post" class="form-control">
+                <h2 class="text-center">Ask your question</h2>
+                    <div class="form-group">
+                    <label for="id_title">Title</label>
+                    {{ post_form.title }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_tags">Tags</label>
+                        {{ post_form.tags }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_body">Body</label>
+                        {{ post_form.body }}
+                    </div>
+                {% csrf_token %}
+                <p><input type="submit" value="post" class="btn btn-primary"></p>
+            </form>
+        </div>
+    </div>
+    </div>
+<style>
+    .form-container input[type="text"],
+    .form-container input[type="password"] {
+        background-color: #343a40; /* Серый фон */
+        color: #e9ecef; /* Белый текст */
+        border: 1px solid #495057; /* Границы */
+        border-radius: 4px;
+        padding: 10px;
+        width: 100%; /* Поля занимают всю ширину */
+    }
+
+    .form-container input[type="text"]:focus,
+    .form-container input[type="password"]:focus {
+        border-color: #ffc107; /* Желтая подсветка при фокусе */
+        box-shadow: 0 0 4px #ffc107; /* Свечение */
+        outline: none; /* Убираем стандартное выделение */
+    }
+
+    }
+        .form-container textarea {
+        background-color: #343a40; /* Серый фон */
+        color: #e9ecef; /* Белый текст */
+        border: 1px solid #495057; /* Границы */
+        border-radius: 4px;
+        padding: 10px;
+        width: 100%; /* Занимает всю ширину формы */
+        min-height: 150px; /* Минимальная высота */
+        resize: none; /* Отключить изменение размера */
+        display: block;
+        margin: 0 auto; /* Центровка поля */
+    }
+
+    .form-container textarea:focus {
+        border-color: #ffc107; /* Желтая подсветка при фокусе */
+        box-shadow: 0 0 4px #ffc107; /* Свечение */
+        outline: none; /* Убираем стандартное выделение */
+    }
+
+    .form-container label {
+        color: #e9ecef; /* Белый текст для меток */
+    }
+
+    .form-container h2 {
+        text-align: center; /* Центровка текста */
+    }
+</style>
+{% endblock %}
